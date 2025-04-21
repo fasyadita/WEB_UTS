@@ -86,9 +86,9 @@ class BukuController extends Controller{
 
         if ($request->ajax() || $request->wantsJson()) {
             $rules = [
-                'judul' => 'required|string|max:255',
-                'penulis' => 'required|string|max:100',
-                'penerbit' => 'required|string|max:100',
+                'judul' => 'required|string|min:3|max:255',
+                'penulis' => 'required|string|min:3|max:100',
+                'penerbit' => 'required|string|min:3|max:100',
                 'id_kategori' => 'required',
                 'jumlah_tersedia' => 'required|integer',
             ];
@@ -124,12 +124,11 @@ class BukuController extends Controller{
                 ]);
             }
         }
-    
-        return response()->json([
-            'status' => false,
-            'message' => 'Permintaan tidak valid.'
-        ]);
-
+        
+        if (!$request->ajax()) {
+            return response()->json(['status' => false, 'message' => 'Permintaan tidak valid.']);
+        }
+        
         // dd($request->all(), $request->method());
     }
     

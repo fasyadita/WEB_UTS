@@ -26,7 +26,7 @@
                                 <option value="{{ $item->user_id }}">{{ $item->username }}</option>
                             @endforeach
                         </select>
-                        <small class="form-text text-muted">Level Pengguna</small>
+                        <small class="form-text text-muted">Username</small>
                     </div>
                 </div>
             </div>

@@ -12,7 +12,7 @@
                 <div class="form-group">
                     <label>Judul Buku</label>
                     <select name="id_buku" id="id_buku" class="form-control" required>
-                        <option value="">- Pilih Buku -</option>
+                        <option value="" disabled selected>- Pilih Buku -</option>
                         @foreach($buku as $b)
                             <option value="{{ $b->id_buku }}">{{ $b->judul }}</option>
                         @endforeach
@@ -22,7 +22,7 @@
                 <div class="form-group">
                     <label>Username</label>
                     <select name="user_id" id="user_id" class="form-control" required>
-                        <option value="">- Pilih User -</option>
+                        <option value="" disabled selected>- Pilih User -</option>
                         @foreach($user as $u)
                             <option value="{{ $u->user_id }}">{{ $u->username }}</option>
                         @endforeach
@@ -40,15 +40,6 @@
 
 <script>
     $(document).ready(function() {
-    $('#id_buku').change(function() {
-        var selectedId = $(this).val();
-        $('#id_buku').val(selectedId);
-    });
-
-    $('#user_id').change(function() {
-        var selectedId = $(this).val();
-        $('#user_id').val(selectedId);
-    });
 
     $("#form-tambah").validate({
         rules: {
@@ -58,15 +49,17 @@
 
         submitHandler: function(form) {
             // Validasi jika form tidak terisi
-            if ($('#id_buku').val() === '') {
-                alert("Pilih Buku terlebih dahulu");
-                return false; // jangan lanjutkan submit
-            }
+            // console.log('User ID:', $('#user_id').val());
 
-            if ($('#user_id').val() === '') {
-                alert("Pilih User terlebih dahulu");
-                return false; // jangan lanjutkan submit
-            }
+            // if ($('#id_buku').val() === '') {
+            //     alert("Pilih Buku terlebih dahulu");
+            //     return false; // jangan lanjutkan submit
+            // }
+
+            // if ($('#user_id').val() === '') {
+            //     alert("Pilih User terlebih dahulu");
+            //     return false; // jangan lanjutkan submit
+            // }
 
             // Kirim data menggunakan AJAX
             $.ajax({

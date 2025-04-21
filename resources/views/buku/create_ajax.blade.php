@@ -53,67 +53,68 @@
 
 
 <script>
-    $(document).ready(function() {
-        $('#id_kategori').change(function() {
-            var selectedId = $(this).val();
-            $('#id_kategori').val(selectedId);
-            // Optional: Anda bisa juga menampilkan nama kategori yang dipilih jika perlu
-            // console.log("Kategori dipilih:", $(this).find(':selected').data('nama'));
-        });
-        $("#form-tambah").validate({
-            rules: {
-                judul: { required: true, maxlength : 255 },
-                penulis: { required: true, maxlength: 100 },
-                penerbit: { required: true, maxlength: 100 },
-                id_kategori: { required: true },
-                jumlah_tersedia: { required: true, number: true }
-            },
-
-            if ($('#id_kategori').val() === '') {
-                var selectedIdOnLoad = $('#nama_kategori').val();
-                $('#id_kategori').val(selectedIdOnLoad);
-            }
-            
-            submitHandler: function(form) {
-                $.ajax({
-                    url: form.action,
-                    type: form.method,
-                    data: $(form).serialize(),
-                    success: function(response) {
-                        if(response.status) {
-                            $('#myModal').modal('hide');
-                            Swal.fire({
-                                icon: 'success',
-                                title: 'Berhasil',
-                                text: response.message
-                            });
-                            dataBuku.ajax.reload();
-                        } else {
-                            $('.error-text').text('');
-                            $.each(response.msgField, function(prefix, val) {
-                                $('#error-' + prefix).text(val[0]);
-                            });
-                            Swal.fire({
-                                icon: 'error',
-                                title: 'Terjadi Kesalahan',
-                                text: response.message
-                            });
-                        }
+   $(document).ready(function() {
+    // Validasi form
+    $("#form-tambah").validate({
+        rules: {
+            judul: { required: true, minlength : 3,  maxlength : 255 },
+            penulis: { required: true, minlength : 3, maxlength: 100 },
+            penerbit: { required: true, minlength : 3, maxlength: 100 },
+            id_kategori: { required: true },
+            jumlah_tersedia: { required: true, number: true }
+        },
+        submitHandler: function(form) {
+            $.ajax({
+                url: form.action,
+                type: form.method,
+                data: $(form).serialize(),
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // <--- wajib
+                },
+                success: function(response) {
+                    if(response.status) {
+                        $('#myModal').modal('hide');
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Berhasil',
+                            text: response.message
+                        });
+                        dataBuku.ajax.reload();
+                    } else {
+                        $('.error-text').text('');
+                        $.each(response.msgField, function(prefix, val) {
+                            $('#error-' + prefix).text(val[0]);
+                        });
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Terjadi Kesalahan',
+                            text: response.message
+                        });
                     }
-                });
-                return false;
-            },
-            errorElement: 'span',
-            errorPlacement: function (error, element) {
-                error.addClass('invalid-feedback');
-                element.closest('.form-group').append(error);
-            },
-            highlight: function (element, errorClass, validClass) {
-                $(element).addClass('is-invalid');
-            },
-            unhighlight: function (element, errorClass, validClass) {
-                $(element).removeClass('is-invalid');
-            }
-        });
+                },
+                error: function(xhr) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Gagal',
+                        text: 'Terjadi kesalahan pada server.'
+                    });
+                    console.log(xhr.responseText);
+                }
+            });
+            return false;
+        },
+        errorElement: 'span',
+        errorPlacement: function (error, element) {
+            error.addClass('invalid-feedback');
+            element.closest('.form-group').append(error);
+        },
+        highlight: function (element, errorClass, validClass) {
+            $(element).addClass('is-invalid');
+        },
+        unhighlight: function (element, errorClass, validClass) {
+            $(element).removeClass('is-invalid');
+        }
     });
+});
+
 </script>

@@ -26,7 +26,7 @@
                                 <option value="{{ $item->id_kategori }}">{{ $item->id_kategori }}</option>
                             @endforeach
                         </select>
-                        <small class="form-text text-muted">kategori Pengguna</small>
+                        <small class="form-text text-muted">Kategori Buku</small>
                     </div>
                 </div>
             </div>

@@ -13,8 +13,7 @@ use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
-    public function index()
-    {
+    public function index(){
         $breadcrumb = (object)[
             'title' => 'Daftar User 😃',
             'list' => ['Home', 'User']
@@ -32,8 +31,7 @@ class UserController extends Controller
     }
 
    
-    public function list(Request $request)
-    {
+    public function list(Request $request){
         $users = UserModel::select('user_id', 'username', 'nama', 'level_id')
             ->with('level');
 
@@ -55,16 +53,14 @@ class UserController extends Controller
             ->make(true);
     }
 
-    public function create_ajax()
-    {
+    public function create_ajax(){
         $level = LevelModel::select('level_id', 'level_nama')->get();
 
         return view('user.create_ajax')
             ->with('level', $level);
     }
 
-    public function store_ajax(Request $request)
-    {
+    public function store_ajax(Request $request){
         // cek apakah request berupa ajax
         if ($request->ajax() || $request->wantsJson()) {
             $rules = [
@@ -95,24 +91,22 @@ class UserController extends Controller
         redirect('/');
     }
 
-    public function show_ajax($id)
-    {
+    public function show_ajax($id){
+        
     $user = UserModel::with('level')->find($id);
 
     return view('user.show_ajax', compact('user'));
     }
 
 
-    public function edit_ajax(string $id)
-    {
+    public function edit_ajax(string $id){
         $user = UserModel::find($id);
         $level = LevelModel::select('level_id', 'level_nama')->get();
 
         return view('user.edit_ajax', ['user' => $user, 'level' => $level]);
     }
 
-    public function update_ajax(Request $request, $id)
-    {
+    public function update_ajax(Request $request, $id){
         // Cek apakah request dari ajax
         if ($request->ajax() || $request->wantsJson()) {
 

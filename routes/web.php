@@ -20,7 +20,6 @@ Route::group(['prefix' => 'user'], function(){
     Route::put('/{id}/update_ajax',[UserController::class, 'update_ajax']);
     Route::get('/{id}/delete_ajax',[UserController::class, 'confirm_ajax']);
     Route::delete('/{id}/delete_ajax',[UserController::class, 'delete_ajax']);
-    Route::delete('/{id}',[UserController::class, 'destroy']);
 });
 
 Route::group(['prefix' => 'level'], function(){
@@ -33,7 +32,6 @@ Route::group(['prefix' => 'level'], function(){
     Route::put('/{id}/update_ajax',[LevelController::class, 'update_ajax']);
     Route::get('/{id}/delete_ajax',[LevelController::class, 'confirm_ajax']);
     Route::delete('/{id}/delete_ajax',[LevelController::class, 'delete_ajax']);
-    Route::delete('/{id}', [LevelController::class, 'destroy']);
 });
 
 Route::group(['prefix' => 'buku'], function(){
@@ -46,7 +44,6 @@ Route::group(['prefix' => 'buku'], function(){
     Route::put('/{id}/update_ajax',[BukuController::class, 'update_ajax']);
     Route::get('/{id}/delete_ajax',[BukuController::class, 'confirm_ajax']);
     Route::delete('/{id}/delete_ajax',[BukuController::class, 'delete_ajax']);
-    Route::delete('/{id}',[BukuController::class, 'destroy']);
 });
 
 
@@ -60,7 +57,6 @@ Route::group(['prefix' => 'kategori'], function(){
     Route::put('/{id}/update_ajax',[KategoriController::class, 'update_ajax']);
     Route::get('/{id}/delete_ajax',[KategoriController::class, 'confirm_ajax']);
     Route::delete('/{id}/delete_ajax',[KategoriController::class, 'delete_ajax']);
-    Route::delete('/{id}',[KategoriController::class, 'destroy']);
 });
 
 Route::group(['prefix' => 'peminjam'], function(){
@@ -73,6 +69,5 @@ Route::group(['prefix' => 'peminjam'], function(){
     Route::put('/{id}/update_ajax',[PeminjamController::class, 'update_ajax']);
     Route::get('/{id}/delete_ajax',[PeminjamController::class, 'confirm_ajax']);
     Route::delete('/{id}/delete_ajax',[PeminjamController::class, 'delete_ajax']);
-    Route::delete('/{id}',[PeminjamController::class, 'destroy']);
 });
 
